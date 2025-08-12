@@ -1,9 +1,9 @@
 package com.phuonglinh.service;
 
-import fa.training.lms.dto.BookSearchCriteria;
-import fa.training.lms.dto.Page;
-import fa.training.lms.dto.PageRequest;
-import fa.training.lms.entity.Book;
+import com.phuonglinh.dto.BookSearchCriteria;
+import com.phuonglinh.dto.Page;
+import com.phuonglinh.dto.PageRequest;
+import com.phuonglinh.entity.Book;
 
 import java.util.List;
 

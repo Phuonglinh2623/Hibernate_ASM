@@ -2,176 +2,137 @@ package com.phuonglinh.entity;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import java.time.LocalDateTime;
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "books")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Book {
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    
+@NamedQueries({
+        @NamedQuery(
+                name = "Book.findTopBorrowed",
+                query = "SELECT b FROM Book b LEFT JOIN b.borrowings br " +
+                        "GROUP BY b ORDER BY COUNT(br) DESC"
+        ),
+        @NamedQuery(
+                name = "Book.findByAuthor",
+                query = "SELECT b FROM Book b JOIN b.authors a WHERE a.id = :authorId"
+        )
+})
+public class Book extends BaseEntity {
+
     @NotBlank(message = "Title is required")
-    @Column(nullable = false, length = 255)
+    @Column(name = "title", nullable = false)
     private String title;
-    
+
     @NotBlank(message = "Category is required")
-    @Column(nullable = false, length = 100)
+    @Column(name = "category", nullable = false)
     private String category;
-    
+
     @NotNull(message = "Available status is required")
-    @Column(nullable = false)
+    @Column(name = "available", nullable = false)
     private Boolean available = true;
-    
-    @CreationTimestamp
-    @Column(name = "created_date", nullable = false, updatable = false)
-    private LocalDateTime createdDate;
-    
-    @UpdateTimestamp
-    @Column(name = "updated_date")
-    private LocalDateTime updatedDate;
-    
-    @Version
-    private Long version;
-    
-    // Many-to-Many with Author
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-        name = "book_authors",
-        joinColumns = @JoinColumn(name = "book_id"),
-        inverseJoinColumns = @JoinColumn(name = "author_id")
-    )
+
+    @Column(name = "isbn")
+    private String isbn;
+
+    @Column(name = "description", columnDefinition = "TEXT")
+    private String description;
+
+    @ManyToMany(mappedBy = "books", fetch = FetchType.LAZY)
     private Set<Author> authors = new HashSet<>();
-    
-    // One-to-Many with Borrowing
-    @OneToMany(mappedBy = "book", fetch = FetchType.LAZY)
+
+    @OneToMany(mappedBy = "book", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Borrowing> borrowings = new HashSet<>();
-    
+
     // Constructors
     public Book() {}
-    
+
     public Book(String title, String category) {
         this.title = title;
         this.category = category;
-        this.available = true;
     }
-    
+
     // Getters and Setters
-    public Long getId() {
-        return id;
-    }
-    
-    public void setId(Long id) {
-        this.id = id;
-    }
-    
     public String getTitle() {
         return title;
     }
-    
+
     public void setTitle(String title) {
         this.title = title;
     }
-    
+
     public String getCategory() {
         return category;
     }
-    
+
     public void setCategory(String category) {
         this.category = category;
     }
-    
+
     public Boolean getAvailable() {
         return available;
     }
-    
+
     public void setAvailable(Boolean available) {
         this.available = available;
     }
-    
-    public LocalDateTime getCreatedDate() {
-        return createdDate;
+
+    public String getIsbn() {
+        return isbn;
     }
-    
-    public void setCreatedDate(LocalDateTime createdDate) {
-        this.createdDate = createdDate;
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
     }
-    
-    public LocalDateTime getUpdatedDate() {
-        return updatedDate;
+
+    public String getDescription() {
+        return description;
     }
-    
-    public void setUpdatedDate(LocalDateTime updatedDate) {
-        this.updatedDate = updatedDate;
+
+    public void setDescription(String description) {
+        this.description = description;
     }
-    
-    public Long getVersion() {
-        return version;
-    }
-    
-    public void setVersion(Long version) {
-        this.version = version;
-    }
-    
+
     public Set<Author> getAuthors() {
         return authors;
     }
-    
+
     public void setAuthors(Set<Author> authors) {
         this.authors = authors;
     }
-    
+
     public Set<Borrowing> getBorrowings() {
         return borrowings;
     }
-    
+
     public void setBorrowings(Set<Borrowing> borrowings) {
         this.borrowings = borrowings;
     }
-    
-    // Utility methods
+
+    // Helper methods
     public void addAuthor(Author author) {
-        this.authors.add(author);
+        authors.add(author);
         author.getBooks().add(this);
     }
-    
+
     public void removeAuthor(Author author) {
-        this.authors.remove(author);
+        authors.remove(author);
         author.getBooks().remove(this);
     }
-    
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Book)) return false;
-        Book book = (Book) o;
-        return getId() != null && getId().equals(book.getId());
-    }
-    
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
-    }
-    
+
     @Override
     public String toString() {
         return "Book{" +
-                "id=" + id +
+                "id=" + getId() +
                 ", title='" + title + '\'' +
                 ", category='" + category + '\'' +
                 ", available=" + available +
-                ", createdDate=" + createdDate +
-                ", version=" + version +
+                ", isbn='" + isbn + '\'' +
                 '}';
     }
 }

@@ -1,12 +1,12 @@
 package com.phuonglinh.repository.impl;
 
-import fa.training.lms.dto.BookSearchCriteria;
-import fa.training.lms.dto.Page;
-import fa.training.lms.dto.PageRequest;
-import fa.training.lms.entity.Book;
-import fa.training.lms.enums.BorrowingStatus;
-import fa.training.lms.repository.BookRepository;
-import fa.training.lms.util.HibernateUtil;
+import com.phuonglinh.dto.BookSearchCriteria;
+import com.phuonglinh.dto.Page;
+import com.phuonglinh.dto.PageRequest;
+import com.phuonglinh.entity.Book;
+import com.phuonglinh.enums.BorrowingStatus;
+import com.phuonglinh.repository.BookRepository;
+import com.phuonglinh.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.slf4j.Logger;

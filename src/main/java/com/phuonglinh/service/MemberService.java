@@ -1,8 +1,8 @@
 package com.phuonglinh.service;
 
-import fa.training.lms.dto.Page;
-import fa.training.lms.dto.PageRequest;
-import fa.training.lms.entity.Member;
+import com.phuonglinh.dto.Page;
+import com.phuonglinh.dto.PageRequest;
+import com.phuonglinh.entity.Member;
 
 import java.util.Optional;
 

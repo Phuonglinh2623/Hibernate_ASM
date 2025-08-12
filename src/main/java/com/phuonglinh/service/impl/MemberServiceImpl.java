@@ -1,16 +1,16 @@
 package com.phuonglinh.service.impl;
 
-import fa.training.lms.dto.Page;
-import fa.training.lms.dto.PageRequest;
-import fa.training.lms.entity.Member;
-import fa.training.lms.exception.BusinessRuleViolationException;
-import fa.training.lms.exception.DuplicateResourceException;
-import fa.training.lms.exception.EntityNotFoundException;
-import fa.training.lms.repository.MemberRepository;
-import fa.training.lms.repository.impl.MemberRepositoryImpl;
-import fa.training.lms.service.MemberService;
-import fa.training.lms.util.HibernateUtil;
-import fa.training.lms.util.ValidationUtil;
+import com.phuonglinh.dto.Page;
+import com.phuonglinh.dto.PageRequest;
+import com.phuonglinh.entity.Member;
+import com.phuonglinh.exception.BusinessRuleViolationException;
+import com.phuonglinh.exception.DuplicateResourceException;
+import com.phuonglinh.exception.EntityNotFoundException;
+import com.phuonglinh.repository.MemberRepository;
+import com.phuonglinh.repository.impl.MemberRepositoryImpl;
+import com.phuonglinh.service.MemberService;
+import com.phuonglinh.util.HibernateUtil;
+import com.phuonglinh.util.ValidationUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.slf4j.Logger;

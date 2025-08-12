@@ -1,10 +1,10 @@
 package com.phuonglinh.repository.impl;
 
-import fa.training.lms.dto.Page;
-import fa.training.lms.dto.PageRequest;
-import fa.training.lms.entity.Borrowing;
-import fa.training.lms.repository.BorrowingRepository;
-import fa.training.lms.util.HibernateUtil;
+import com.phuonglinh.dto.Page;
+import com.phuonglinh.dto.PageRequest;
+import com.phuonglinh.entity.Borrowing;
+import com.phuonglinh.repository.BorrowingRepository;
+import com.phuonglinh.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.slf4j.Logger;

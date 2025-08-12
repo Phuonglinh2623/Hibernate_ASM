@@ -1,9 +1,9 @@
 package com.phuonglinh.service;
 
-import fa.training.lms.dto.BorrowBooksRequest;
-import fa.training.lms.dto.Page;
-import fa.training.lms.dto.PageRequest;
-import fa.training.lms.entity.Borrowing;
+import com.phuonglinh.dto.BorrowBooksRequest;
+import com.phuonglinh.dto.Page;
+import com.phuonglinh.dto.PageRequest;
+import com.phuonglinh.entity.Borrowing;
 
 import java.time.LocalDate;
 import java.util.List;
